@@ -1,0 +1,3 @@
+install server - npm init -y
+create index.js
+install express - npm install express
