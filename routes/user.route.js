@@ -49,4 +49,13 @@ router
    */
   .post(userControllers.saveUser);
 
+router
+  .route("/delete")
+  /**
+   * @api {get} /user All user
+   * @apiDescription Get all the user
+   * @apiPermission admin
+   */
+  .delete(userControllers.deleteUser);
+
 module.exports = router;

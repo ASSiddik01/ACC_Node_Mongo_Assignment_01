@@ -1,17 +1,18 @@
 const fs = require("fs");
-const data = fs.readFileSync("user.json", "utf8");
+const url = require("url");
+const allUsers = fs.readFileSync("user.json", "utf8");
+let parsedUsers = JSON.parse(allUsers);
 
 module.exports.getAllUsers = (req, res) => {
   res.status(200).json({
     success: true,
     message: "success",
-    data: JSON.parse(data),
+    data: JSON.parse(allUsers),
   });
 };
 
 module.exports.getRandomUser = (req, res) => {
-  const parsedData = JSON.parse(data);
-  const length = parsedData.length - 1;
+  const length = parsedUsers.length - 1;
   const randomNumber = () => {
     const number = Math.round(Math.random() * 100);
     if (number > length) {
@@ -19,7 +20,7 @@ module.exports.getRandomUser = (req, res) => {
     } else {
       const randomId = number;
       let randomUser = [];
-      const randomData = parsedData[randomId];
+      const randomData = parsedUsers[randomId];
       randomUser.push(randomData);
       res.status(200).json({
         success: true,
@@ -34,21 +35,40 @@ module.exports.getRandomUser = (req, res) => {
 
 module.exports.saveUser = (req, res) => {
   let userData = req.body[0];
-  const parsedData = JSON.parse(data);
+
   let idArray = [];
-  let allUser = [];
-  for (const user of parsedData) {
-    allUser.push(user);
+  let newUser = [];
+  for (const user of parsedUsers) {
+    newUser.push(user);
     idArray.push(user.id);
   }
   const newid = idArray.pop() + 1;
   userData.id = newid;
-  allUser.push(userData);
-  const stringfiedUser = JSON.stringify(allUser);
+  newUser.push(userData);
+  const stringfiedUser = JSON.stringify(newUser);
   console.log(stringfiedUser);
   fs.writeFileSync("user.json", stringfiedUser);
   res.status(200).json({
     success: true,
     message: "success",
+  });
+};
+
+module.exports.deleteUser = (req, res) => {
+  const { id } = req.query;
+  // console.log(Number(id));
+  console.log(parsedUsers);
+  parsedUsers = parsedUsers.filter(
+    (parsedUser) => parsedUser.id !== Number(id)
+  );
+  console.log(parsedUsers);
+
+  const stringfiedUser = JSON.stringify(parsedUsers);
+
+  fs.writeFileSync("user.json", stringfiedUser);
+  res.status(200).json({
+    success: true,
+    message: "success",
+    data: "User delete",
   });
 };
