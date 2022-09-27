@@ -8,6 +8,7 @@ module.exports.getAllUsers = (req, res) => {
     data: JSON.parse(data),
   });
 };
+
 module.exports.getRandomUser = (req, res) => {
   const parsedData = JSON.parse(data);
   const length = parsedData.length - 1;
@@ -29,4 +30,25 @@ module.exports.getRandomUser = (req, res) => {
     }
   };
   randomNumber();
+};
+
+module.exports.saveUser = (req, res) => {
+  let userData = req.body[0];
+  const parsedData = JSON.parse(data);
+  let idArray = [];
+  let allUser = [];
+  for (const user of parsedData) {
+    allUser.push(user);
+    idArray.push(user.id);
+  }
+  const newid = idArray.pop() + 1;
+  userData.id = newid;
+  allUser.push(userData);
+  const stringfiedUser = JSON.stringify(allUser);
+  console.log(stringfiedUser);
+  fs.writeFileSync("user.json", stringfiedUser);
+  res.status(200).json({
+    success: true,
+    message: "success",
+  });
 };

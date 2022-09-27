@@ -40,4 +40,13 @@ router
    */
   .get(userControllers.getRandomUser);
 
+router
+  .route("/save")
+  /**
+   * @api {get} /user All user
+   * @apiDescription Get all the user
+   * @apiPermission admin
+   */
+  .post(userControllers.saveUser);
+
 module.exports = router;
