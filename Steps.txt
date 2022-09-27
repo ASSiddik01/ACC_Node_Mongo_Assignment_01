@@ -4,3 +4,4 @@ install express - npm install express
 setup minimal server and run
 create error handle middleware
 create data serving route and cortrollers
+create get all user api
