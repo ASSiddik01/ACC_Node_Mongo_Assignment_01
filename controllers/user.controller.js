@@ -54,6 +54,41 @@ module.exports.saveUser = (req, res) => {
   });
 };
 
+module.exports.updateUser = (req, res) => {
+  const { id } = req.query;
+
+  const reqData = req.body[0];
+  const reqDataKey = Object.keys(reqData);
+
+  for (const reqKeys of reqDataKey) {
+    const reqDataValue = reqData[reqKeys];
+    // console.log(reqDataValue);
+
+    //
+    const findData = parsedUsers.find(
+      (parsedUser) => parsedUser.id === Number(id)
+    );
+    const findDataKey = Object.keys(findData);
+
+    for (const findKey of findDataKey) {
+      let findDataValue = findData[findKey];
+      console.log(findDataValue);
+      if (findKey == reqKeys) {
+        findDataValue = reqDataValue;
+      }
+      console.log(findDataValue);
+    }
+
+    // console.log(Object.keys(findData));
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "success",
+    data: "User update",
+  });
+};
+
 module.exports.deleteUser = (req, res) => {
   const { id } = req.query;
   // console.log(Number(id));
