@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 const errorHandler = require("./middleware/errorHandler");
 const userRoutes = require("./routes/user.route");
 
@@ -14,7 +14,7 @@ app.use(express.json());
 app.use("/user", userRoutes);
 
 /**
- * @api {get} / Server Testing
+ * @api {get} /
  * @apiDescription Testing the server is running or not
  * @apiPermission all
  */
@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
 });
 
 /**
- * @api {all} which router is not found
+ * @api {all} /* (anything)
  * @apiDescription API for which route not valid
  * @apiPermission all
  */

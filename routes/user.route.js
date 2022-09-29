@@ -5,55 +5,35 @@ const router = express.Router();
 router
   .route("/all")
   /**
-   * @api {get} /user All user
+   * @api {get} /all
    * @apiDescription Get all the user
-   * @apiPermission admin
-   *
-   * @apiHeader {String} Authorization   User's access token
-   *
-   * @apiParam  {Number{1-}}         [page=1]     List page
-   * @apiParam  {Number{1-100}}      [limit=10]  Users per page
-   *
-   * @apiSuccess {Object[]} all the user.
-   *
-   * @apiError (Unauthorized 401)  Unauthorized  Only authenticated users can access the data
-   * @apiError (Forbidden 403)     Forbidden     Only admins can access the data
+   * @apiPermission all
    */
   .get(userControllers.getAllUsers);
 
 router
   .route("/random")
   /**
-   * @api {get} /user All user
-   * @apiDescription Get all the user
-   * @apiPermission admin
-   *
-   * @apiHeader {String} Authorization   User's access token
-   *
-   * @apiParam  {Number{1-}}         [page=1]     List page
-   * @apiParam  {Number{1-100}}      [limit=10]  Users per page
-   *
-   * @apiSuccess {Object[]} all the user.
-   *
-   * @apiError (Unauthorized 401)  Unauthorized  Only authenticated users can access the data
-   * @apiError (Forbidden 403)     Forbidden     Only admins can access the data
+   * @api {get} /random
+   * @apiDescription Get a random user
+   * @apiPermission all
    */
   .get(userControllers.getRandomUser);
 
 router
   .route("/save")
   /**
-   * @api {get} /user All user
-   * @apiDescription Get all the user
-   * @apiPermission admin
+   * @api {post} /save
+   * @apiDescription save a user
+   * @apiPermission all
    */
   .post(userControllers.saveUser);
 
 router
   .route("/update")
   /**
-   * @api {get} /user All user
-   * @apiDescription Get all the user
+   * @api {patch} /update
+   * @apiDescription Update a user by id
    * @apiPermission admin
    */
   .patch(userControllers.updateUser);
@@ -61,17 +41,17 @@ router
 router
   .route("/bulk-update")
   /**
-   * @api {get} /user All user
-   * @apiDescription Get all the user
-   * @apiPermission admin
+   * @api {patch} /bulk-update
+   * @apiDescription Update multiple user by id
+   * @apiPermission all
    */
   .patch(userControllers.bulkUpdate);
 
 router
   .route("/delete")
   /**
-   * @api {get} /user All user
-   * @apiDescription Get all the user
+   * @api {delete} /delete
+   * @apiDescription Delete a user by id
    * @apiPermission admin
    */
   .delete(userControllers.deleteUser);
