@@ -67,13 +67,34 @@ module.exports.updateUser = (req, res) => {
   parsedUsers.splice(findDataIndex, 1, updateData);
 
   const stringfiedUser = JSON.stringify(parsedUsers);
-  console.log(stringfiedUser);
   fs.writeFileSync("user.json", stringfiedUser);
 
   res.status(200).json({
     success: true,
     message: "success",
     data: `Id no ${id} is updated`,
+  });
+};
+
+module.exports.bulkUpdate = (req, res) => {
+  const reqData = req.body;
+  for (const singleData of reqData) {
+    const userIndex = parsedUsers.findIndex((user) => user.id == singleData.id);
+    const reqIndex = reqData.findIndex((user) => user.id == singleData.id);
+    if (userIndex > -1) {
+      parsedUsers[userIndex] = {
+        ...parsedUsers[userIndex],
+        ...reqData[reqIndex],
+      };
+    }
+    const stringfiedUser = JSON.stringify(parsedUsers);
+    fs.writeFileSync("user.json", stringfiedUser);
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "success",
+    data: `Bulk updated`,
   });
 };
 

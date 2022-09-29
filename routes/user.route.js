@@ -59,6 +59,15 @@ router
   .patch(userControllers.updateUser);
 
 router
+  .route("/bulk-update")
+  /**
+   * @api {get} /user All user
+   * @apiDescription Get all the user
+   * @apiPermission admin
+   */
+  .patch(userControllers.bulkUpdate);
+
+router
   .route("/delete")
   /**
    * @api {get} /user All user
